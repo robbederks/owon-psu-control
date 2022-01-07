@@ -1,6 +1,12 @@
 # Owon SPEx103 PSU python control library
 This library works with the Owon SPE6103 and SPE3103 power supplies.
 
+## Installation
+The easiest way to install is straight from [the pypi project](https://pypi.org/project/owon-psu/) using pip:
+```
+pip install owon-psu
+```
+
 ## Example Usage with context manager
 ```python
 from owon_psu import OwonPSU
