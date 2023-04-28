@@ -17,11 +17,7 @@ class OwonPSU:
   def open(self):
     self.ser = serial.Serial(self.port, 115200, timeout=self.timeout)
     identity = self.read_identity()
-    for s in self.SUPPORTED_DEVICES:
-      if s in identity:
-        #Found a supported PSU
-        break;
-    else:
+    if not any([s in identity for s in self.SUPPORTED_DEVICES]):
       self.close()
       raise Exception("Not connected to a supported PSU!")
 
