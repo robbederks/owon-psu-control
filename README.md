@@ -1,5 +1,6 @@
 # Owon SPEx103 PSU python control library
 This library works with the Owon SPE6103 and SPE3103 power supplies.
+Kiprim devices "DC310S" and "DC605S" are also supported.
 
 ## Installation
 The easiest way to install is straight from [the pypi project](https://pypi.org/project/owon-psu/) using pip:
