@@ -6,6 +6,9 @@ __author__ = 'Robbe Derks'
 import serial
 
 class OwonPSU:
+
+  SUPPORTED_DEVICES = {"OWNON,SPE", "KIPRIM,DC"}
+
   def __init__(self, port, default_timeout=0.5):
     self.ser = None
     self.port = port
@@ -13,7 +16,13 @@ class OwonPSU:
 
   def open(self):
     self.ser = serial.Serial(self.port, 115200, timeout=self.timeout)
-    if "OWON,SPE" not in self.read_identity():
+    identity = self.read_identity()
+    for s in self.SUPPORTED_DEVICES:
+      if s in identity:
+        #Found a supported PSU
+        break;
+    else:
+      self.close()
       raise Exception("Not connected to a supported PSU!")
 
   def close(self):
