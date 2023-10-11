@@ -14,13 +14,20 @@ from owon_psu import OwonPSU
 
 with OwonPSU("/dev/ttyUSB0") as opsu:
   print("Identity:", opsu.read_identity())
-  print("Voltage:", opsu.measure_voltage())
-  print("Current:", opsu.measure_current())
+  print("Measured Voltage:", opsu.measure_voltage())
+  print("Measured Current:", opsu.measure_current())
+
+  print("Set Voltage:", opsu.get_voltage())
+  print("Set Current:", opsu.get_current())
+
+  print("Set Voltage Limit:", opsu.get_voltage_limit())
+  print("Set Current Limit:", opsu.get_current_limit())
 
   opsu.set_voltage(20)
   opsu.set_current(2)
   opsu.set_voltage_limit(30)
   opsu.set_current_limit(3)
+
   print("Output enabled:", opsu.get_output())
   opsu.set_output(True)
 ```
@@ -33,6 +40,13 @@ opsu = OwonPSU("/dev/ttyUSB0")
 print("Identity:", opsu.read_identity())
 print("Voltage:", opsu.measure_voltage())
 print("Current:", opsu.measure_current())
+
+print("Set Voltage:", opsu.get_voltage())
+print("Set Current:", opsu.get_current())
+
+print("Set Voltage Limit:", opsu.get_voltage_limit())
+print("Set Current Limit:", opsu.get_current_limit())
+
 opsu.set_voltage(20)
 opsu.set_current(2)
 opsu.set_voltage_limit(30)

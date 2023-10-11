@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 __author__ = 'Robbe Derks'
 
 import serial
@@ -54,6 +54,18 @@ class OwonPSU:
   def measure_current(self):
     return float(self._cmd("MEASure:CURRent?"))
 
+  def get_voltage(self):
+    return float(self._cmd("VOLTage?"))
+
+  def get_current(self):
+    return float(self._cmd("CURRent?"))
+
+  def get_voltage_limit(self):
+    return float(self._cmd("VOLTage:LIMit?"))
+
+  def get_current_limit(self):
+    return float(self._cmd("CURRent:LIMit?"))
+   
   def set_voltage(self, voltage):
     return self._silent_cmd(f"VOLTage {voltage:.3f}")
 
