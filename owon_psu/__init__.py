@@ -7,7 +7,7 @@ import serial
 
 class OwonPSU:
 
-  SUPPORTED_DEVICES = {"OWON,SPE", "KIPRIM,DC"}
+  SUPPORTED_DEVICES = {"OWON,SPE", "OWON,SPM", "KIPRIM,DC"}
 
   def __init__(self, port, default_timeout=0.5):
     self.ser = None
