@@ -37,6 +37,7 @@ with OwonPSU("/dev/ttyUSB0") as opsu:
 from owon_psu import OwonPSU
 
 opsu = OwonPSU("/dev/ttyUSB0")
+opsu.open()
 print("Identity:", opsu.read_identity())
 print("Voltage:", opsu.measure_voltage())
 print("Current:", opsu.measure_current())
@@ -53,4 +54,5 @@ opsu.set_voltage_limit(30)
 opsu.set_current_limit(3)
 print("Output enabled:", opsu.get_output())
 opsu.set_output(True)
+opsu.close()
 ```
