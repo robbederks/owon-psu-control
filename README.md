@@ -1,5 +1,5 @@
-# Owon SPEx103 PSU python control library
-This library works with the Owon SPE6103 and SPE3103 power supplies.
+# Owon SPE and P4000 series PSU python control library
+This library works with the Owon SPE6103, SPE3103, and P4000 series (P4603 and P4305) power supplies.
 Kiprim devices "DC310S" and "DC605S" are also supported.
 
 ## Installation
