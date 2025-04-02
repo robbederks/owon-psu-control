@@ -7,7 +7,7 @@ import serial
 
 class OwonPSU:
 
-  SUPPORTED_DEVICES = {"OWON,SPE", "OWON,SPM", "KIPRIM,DC"}
+  SUPPORTED_DEVICES = {"OWON,SPE", "OWON,SPM", "OWON,P4","KIPRIM,DC"}
 
   def __init__(self, port, default_timeout=0.5):
     self.ser = None
@@ -80,12 +80,24 @@ class OwonPSU:
 
   def get_output(self):
     ret = self._cmd(f"OUTPut?")
+    if ret in ["0", "1"]:
+      return ret == "1"
+
     if ret not in ["ON", "OFF"]:
       raise Exception(f"Unknown return for get output command: {ret}")
     return ret == "ON"
 
   def set_output(self, enabled):
     self._silent_cmd(f"OUTPut {'ON' if enabled else 'OFF'}")
+
+  # System Control Commands: equivalent to 'Keylock' button on P4000 series
+  def set_keylock(self, enabled):
+    if enabled:
+      # Note: SYSTem:REMote does not work on P4603
+      self._silent_cmd("SYST:REM")
+    else:
+      # Note: SYSTem:LOCal does not work on P4603
+      self._silent_cmd("SYST:LOC")
 
 if __name__ == "__main__":
   import sys

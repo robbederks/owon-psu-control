@@ -1,5 +1,5 @@
-# Owon SPEx103 PSU python control library
-This library works with the Owon SPE6103 and SPE3103 power supplies.
+# Owon SPE and P4000 series PSU python control library
+This library works with the Owon SPE6103, SPE3103, and P4000 series (P4603 and P4305) power supplies.
 Kiprim devices "DC310S" and "DC605S" are also supported.
 
 ## Installation
@@ -37,6 +37,7 @@ with OwonPSU("/dev/ttyUSB0") as opsu:
 from owon_psu import OwonPSU
 
 opsu = OwonPSU("/dev/ttyUSB0")
+opsu.open()
 print("Identity:", opsu.read_identity())
 print("Voltage:", opsu.measure_voltage())
 print("Current:", opsu.measure_current())
@@ -53,4 +54,5 @@ opsu.set_voltage_limit(30)
 opsu.set_current_limit(3)
 print("Output enabled:", opsu.get_output())
 opsu.set_output(True)
+opsu.close()
 ```
