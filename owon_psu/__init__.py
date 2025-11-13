@@ -36,10 +36,15 @@ class OwonPSU:
       raise Exception("Connection is not open!")
     self.ser.write(bytes(command, 'utf-8') + b"\n")
     self.ser.timeout = timeout if timeout is not None else self.timeout
-    ret = self.ser.readline().decode('utf-8')
-    if not ret.endswith("\r\n") and not accept_silent:
+    ret = self.ser.readline().decode('utf-8', errors='replace')
+    if not ret and not accept_silent:
       raise Exception(f"No response for command: '{command}'!")
-    return ret[:-2]
+
+    # Some firmware revisions terminate responses with '\r' only or '\n' only.
+    ret = ret.rstrip("\r\n")
+    if not ret and not accept_silent:
+      raise Exception(f"No response for command: '{command}'!")
+    return ret
 
   def _silent_cmd(self, command, timeout=0.01):
     if self._cmd(command, accept_silent=True, timeout=timeout) == "ERR":
