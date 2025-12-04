@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="owon_psu",
-    version="0.0.4",
+    version="0.0.5",
     author="Robbe Derks",
     author_email="robbe.derks@gmail.com",
     description="Simple Python library for controlling Owon SPE6103 and SPE3103 power supplies",
