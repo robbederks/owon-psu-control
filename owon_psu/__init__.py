@@ -36,10 +36,11 @@ class OwonPSU:
       raise Exception("Connection is not open!")
     self.ser.write(bytes(command, 'utf-8') + b"\n")
     self.ser.timeout = timeout if timeout is not None else self.timeout
-    ret = self.ser.readline().decode('utf-8')
-    if not ret.endswith("\r\n") and not accept_silent:
+    ret = self.ser.readline().decode('utf-8', errors='ignore')
+    ret = ret.strip()
+    if len(ret) == 0 and not accept_silent:
       raise Exception(f"No response for command: '{command}'!")
-    return ret[:-2]
+    return ret
 
   def _silent_cmd(self, command, timeout=0.01):
     if self._cmd(command, accept_silent=True, timeout=timeout) == "ERR":
@@ -65,7 +66,7 @@ class OwonPSU:
 
   def get_current_limit(self):
     return float(self._cmd("CURRent:LIMit?"))
-   
+
   def set_voltage(self, voltage):
     return self._silent_cmd(f"VOLTage {voltage:.3f}")
 
