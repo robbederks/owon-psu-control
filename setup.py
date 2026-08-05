@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="owon_psu",
-    version="0.0.5",
+    version="0.0.6",
     author="Robbe Derks",
     author_email="robbe.derks@gmail.com",
-    description="Simple Python library for controlling Owon SPE6103 and SPE3103 power supplies",
+    description="Simple Python library for controlling Owon SPE and SPM power supplies",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    keywords=[ 'scpi', 'owon', 'SPE6103', 'SPE3103', 'simple' ],
+    keywords=[ 'scpi', 'owon', 'SPE6103', 'SPE3103', 'SPM6103', 'multimeter', 'simple' ],
     url="https://github.com/robbederks/owon-psu-control",
     project_urls = {
       'Source Code': 'https://github.com/robbederks/owon-psu-control',

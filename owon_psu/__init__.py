@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-__version__ = '0.0.2'
+__version__ = '0.0.6'
 __author__ = 'Robbe Derks'
 
 import serial
@@ -8,6 +8,17 @@ import serial
 class OwonPSU:
 
   SUPPORTED_DEVICES = {"OWON,SPE", "OWON,SPM", "OWON,P4","KIPRIM,DC"}
+
+  MULTIMETER_FUNCTIONS = {
+    "VOLT:DC": "VOLTage:DC",
+    "VOLT:AC": "VOLTage:AC",
+    "CURR:DC": "CURRent:DC",
+    "CURR:AC": "CURRent:AC",
+    "RES": "RESistance",
+    "CAP": "CAPacitance",
+    "DIOD": "DIODe",
+    "CONT": "CONTinuity",
+  }
 
   def __init__(self, port, default_timeout=0.5):
     self.ser = None
@@ -90,6 +101,20 @@ class OwonPSU:
 
   def set_output(self, enabled):
     self._silent_cmd(f"OUTPut {'ON' if enabled else 'OFF'}")
+
+  def get_multimeter_function(self):
+    return self._cmd("FUNCtion?")
+
+  def set_multimeter_function(self, function):
+    if function not in self.MULTIMETER_FUNCTIONS:
+      raise Exception(f"Unknown multimeter function: {function}")
+    self._silent_cmd(f"FUNCtion:{self.MULTIMETER_FUNCTIONS[function]}")
+
+  def measure_multimeter(self):
+    ret = self._cmd("CONFigure?").split(" ", 1)[1]
+    if ret in ["OL", "Open"]:
+      return float("inf")
+    return float(ret)
 
   # System Control Commands: equivalent to 'Keylock' button on P4000 series
   def set_keylock(self, enabled):
